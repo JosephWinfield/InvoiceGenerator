@@ -1,11 +1,11 @@
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
+const path = require('path')
 
-var config = {
+module.exports = {
   entry: {
     path: './src/main.js',
   },
   output: {
-    path: './dist/javascripts',
+    path: path.resolve(__dirname,'dist', 'javascripts'),
     filename: 'bundle.js'
   },
   module: {
@@ -13,7 +13,7 @@ var config = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel'
+        loader: 'babel-loader'
       },
       {
         test: /\.css/,
@@ -33,5 +33,3 @@ if (process.env.NODE_ENV === 'production') {
   config.plugins = [
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' })  ];
 }
-
-module.exports = config;

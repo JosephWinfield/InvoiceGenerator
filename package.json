@@ -18,10 +18,10 @@
     "babel-preset-react": "^6.5.0",
     "moment": "^2.18.1",
     "normalize.css": "^7.0.0",
-    "react": "^15.0.2",
+    "react": "^16.0.0",
     "react-datepicker": "^0.55.0",
-    "react-dom": "^15.0.2",
-    "webpack": "^1.13.0"
+    "react-dom": "^16.0.0",
+    "webpack": "^3.6.0"
   },
   "devDependencies": {
     "css-loader": "^0.28.7",

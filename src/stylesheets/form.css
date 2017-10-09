@@ -7,11 +7,19 @@ body {
 
 .wrapper {
 	width: 95%;
+	max-width: 450px;
 	background-color: #fff;
 	margin: 10 auto 0;
 	border-top: 5px solid #0cbeab;
 	box-shadow: 0 3px 2px rgba(60,72,88,.34);
 	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+form {
+	margin-bottom: 100px;
 }
 
 ul, li {
@@ -145,6 +153,11 @@ input[name='dueDate'] {
 	border-top: 0.5px solid #d3dcf4;
 }
 
+.line-item-fields {
+	display: flex;
+	flex-direction: column;
+}
+
 .quantity, .rate {
 	width: 100px;
 }
@@ -270,7 +283,7 @@ input[name=shipping] {
 	padding: 0;
 }
 
-.invoice-footer {
+.notes-terms {
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
@@ -283,8 +296,8 @@ input[name='terms'] {
 
 .footer {
 	display: flex;
-	flex-direction: column;
-	width: 95%;
+	justify-content: center;
+	width: 100%;
 	margin: 0 auto;
 	position: fixed;
 	bottom: 0;
@@ -296,4 +309,56 @@ input[name='terms'] {
 .footer-buttons {
 	display: flex;
 	justify-content: flex-end;
+	width: 100%;
+	max-width: 850px;
+}
+
+.two-col, .head-col-left, .head-col-right {
+	display: flex;
+	flex-direction: column;
+}
+
+
+@media (min-width: 768px) {
+	.wrapper {
+		max-width: 850px;
+	}
+
+	textarea {
+		width: 290px;
+		height: 90px;
+	}
+
+	.two-col {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	.line-item-fields {
+		flex-direction: row;
+	}
+
+	.bottom-area {
+		flex-grow: 10;
+		align-self: flex-start;
+		order: 1;
+		margin-right: 16px;
+	}
+
+
+	.middle-area {
+		order: 2;
+		align-self: flex-end;
+	}
+
+	.invoice-bill{
+		order: 2;
+		align-self: flex-end;
+		margin: 0 auto;
+	}
+
+	.invoice-footer {
+		margin: 35px auto 0;
+		width: 95%
+	}
 }

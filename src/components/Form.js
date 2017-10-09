@@ -25,7 +25,7 @@ const calcRate = (type, amount, subTotal) => {
 }
 
 const calcTotal = (subTotal, tax, discount, shipping) => {
-	return (parseFloat(subTotal + tax + shipping - discount).toFixed(2))
+	return (parseFloat((subTotal  - discount) + tax + shipping).toFixed(2))
 }
 
 const calcBalanceDue = (total, amountPaid) => {
@@ -122,12 +122,27 @@ export default class InvoiceForm extends React.Component {
 	render() {
 
 		const subtotal = calcSubtotal(this.state.items)
-		const subSansDiscount = (subtotal - this.state.discount)
+
+		const rateDiscount = calcRate(
+			this.state.discountType,
+			this.state.discount,
+			subtotal
+		)
+
+		const subSansDiscount = (subtotal - rateDiscount)
+
+		const rateTax = calcRate(
+			this.state.taxType,
+			this.state.tax,
+			subSansDiscount
+		)
+
 		const total = calcTotal(
 			subtotal,
-			calcRate(this.state.taxType, this.state.tax, subSansDiscount),
-			calcRate(this.state.discountType, this.state.discount, subtotal),
-			this.state.shipping)
+			rateTax,
+			rateDiscount,
+			this.state.shipping
+		)
 
 		let logo = null
 		if (this.state.logo === '') {
@@ -346,54 +361,59 @@ export default class InvoiceForm extends React.Component {
 								{logo}
 
 							</div>
-						<label htmlFor='from'>
-							From
-						</label>
-						<textarea
-							name='from'
-							onChange={this.handleChange}
-						/>
+							<div className='two-col'>
+								<div className='head-col-left'>
+									<label htmlFor='from'>
+										From
+									</label>
+									<textarea
+										name='from'
+										onChange={this.handleChange}
+									/>
 
-						<label htmlFor='to'>
-							Bill To
-						</label>
-						<textarea
-							name='to'
-							onChange={this.handleChange}
-						/>
+									<label htmlFor='to'>
+										Bill To
+									</label>
+									<textarea
+										name='to'
+										onChange={this.handleChange}
+									/>
+								</div>
+								<div className='head-col-right'>
+									<span className='date'>
+										Date
+									</span>
+									<DatePicker
+										selected={this.state.date}
+										onChange={(date) => this.setSelection(date, 'date') }
+										name='dueDate'
+										showMonthDropdown
+									 />
 
-						<span className='date'>
-							Date
-						</span>
-						<DatePicker
-							selected={this.state.date}
-							onChange={(date) => this.setSelection(date, 'date') }
-							name='dueDate'
-							showMonthDropdown
-						 />
+									<label htmlFor='paymentTerms'>
+										Payment Terms
+									</label>
+									<input
+										name='paymentTerms'
+										onChange={this.handleChange}
+									/>
 
-						<label htmlFor='paymentTerms'>
-							Payment Terms
-						</label>
-						<input
-							name='paymentTerms'
-							onChange={this.handleChange}
-						/>
+									<span className='date'>
+										Due Date
+									</span>
+									<DatePicker
+										selected={this.state.dueDate}
+										onChange={(date) => this.setSelection(date, 'dueDate') }
+										name='dueDate'
+										showMonthDropdown
+									 />
 
-						<span className='date'>
-							Due Date
-						</span>
-						<DatePicker
-							selected={this.state.dueDate}
-							onChange={(date) => this.setSelection(date, 'dueDate') }
-							name='dueDate'
-							showMonthDropdown
-						 />
-
-						<span className='balance'>
-						 	Balance Due: ${calcBalanceDue(total, this.state.amountPaid)}
-						</span>
-					</div>
+									<span className='balance'>
+									 	Balance Due: ${calcBalanceDue(total, this.state.amountPaid)}
+									</span>
+								</div>
+							</div>
+						</div>
 						<div className='items-container'>
 							<ul className='line-item-list'>
 								{this.state.items.map((item, index) => {
@@ -415,6 +435,9 @@ export default class InvoiceForm extends React.Component {
 													amount: (item.rate * item.quantity)
 												}
 
+												if ((name === 'quantity' || name === 'rate') && value === '') {
+													value = 0
+												}
 												newItems[index][name] = value
 
 											this.setState({
@@ -449,68 +472,70 @@ export default class InvoiceForm extends React.Component {
 							</button>
 						</div>
 
-						<div className='invoice-bill'>
-							<span>
-								Subtotal: ${calcSubtotal(this.state.items)}
-							</span>
+						<div className='two-col invoice-footer'>
+							<div className='invoice-bill'>
+								<span>
+									Subtotal: ${calcSubtotal(this.state.items)}
+								</span>
 
-							{discount}
+								{discount}
 
-							{tax}
+								{tax}
 
-							{shipping}
+								{shipping}
 
-							<div className='buttons'>
-								{discountButton}
-								{taxButton}
-								{shippingButton}
-							</div>
+								<div className='buttons'>
+									{discountButton}
+									{taxButton}
+									{shippingButton}
+								</div>
 
-							<div className='total-field'>
-								<span>Total: ${total}</span>
-							</div>
+								<div className='total-field'>
+									<span>Total: ${total}</span>
+								</div>
 
-							<div className='amount-paid-field'>
-								<div>
-									<label htmlFor='amountPaid'>
-										Amount Paid
-									</label>
-									<input
-										name='amountPaid'
-										type='number'
-										min='0'
-										onChange={this.handleChange}
-									/>
+								<div className='amount-paid-field'>
+									<div>
+										<label htmlFor='amountPaid'>
+											Amount Paid
+										</label>
+										<input
+											name='amountPaid'
+											type='number'
+											min='0'
+											onChange={this.handleChange}
+										/>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div className='invoice-footer'>
-							<label htmlFor='notes'>
-								Notes
-							</label>
-							<input
-								name='notes'
-								onChange={this.handleChange}
-							/>
+							<div className='notes-terms'>
+								<label htmlFor='notes'>
+									Notes
+								</label>
+								<textarea
+									name='notes'
+									onChange={this.handleChange}
+								/>
 
-							<label htmlFor='terms'>
-								Terms
-							</label>
-							<input
-								name='terms'
-								onChange={this.handleChange}
-							/>
+								<label htmlFor='terms'>
+									Terms
+								</label>
+								<textarea
+									name='terms'
+									onChange={this.handleChange}
+								/>
+							</div>
 						</div>
-					</div>
 
+				</div>
 				<div className='footer'>
 					<div className='footer-buttons'>
 						<input type='submit' className='submit'/>
 						<button
-						onClick={()=>{
-							console.log(this.state)
-						}}>
-						Log state
+							onClick={()=>{
+								console.log(this.state)
+							}}>
+							Log state
 						</button>
 					</div>
 				</div>
