@@ -1,46 +1,113 @@
 body {
 	background-color: #f6f8ff;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-	width: 100%;
 	color: #4d5c71;
 }
 
 .wrapper {
-	width: 95%;
 	max-width: 450px;
-	background-color: #fff;
 	margin: 10 auto 0;
 	border-top: 5px solid #0cbeab;
 	box-shadow: 0 3px 2px rgba(60,72,88,.34);
+}
+
+.wrapper,
+input,
+button,
+textarea,
+.logo {
 	border-radius: 5px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
 
-form {
-	margin-bottom: 100px;
-}
-
-ul, li {
-	padding: 0;
 }
 
 label, input, textarea, .date {
 	font-size: 13px;
 }
 
+input,
+textarea
+.logo,
+.add-line-item {
+	font-weight: 100;
+}
+
+h1 {
+	font-size: 32px;
+	font-weight: 400;
+}
+
+.add-line-item,
+.logo,
+.buttons button {
+	font-size: 14px;
+}
+
+.balance {
+	font-size: 18px;
+	font-weight: bold;
+	margin: 15px 0 35px;
+}
+
+.buttons button,
+input[type=radio] + label {
+	margin-right: 25px;
+}
+
+input[type=radio]:checked + label {
+	font-weight: 900;
+}
+
+.invoice-bill > span {
+	font-weight: 500;
+}
+
+.wrapper,
+.footer,
+.buttons button {
+	background-color: #ffffff;
+}
+
+button,
+.submit,
+.logo {
+	background-color: #5582fa;
+	color: #fff;
+}
+
+.buttons button {
+	color: #0cbeab;
+}
+
+input[type=radio]:checked + label,
+.balance {
+	color: #fea06d
+}
+
+form {
+	margin-bottom: 100px;
+}
+
+ul,
+li,
+.buttons button  {
+	padding: 0;
+}
+
+
 label, .date {
 	margin-bottom: 3px;
 }
 
-input, textarea {
-	font-weight: 100;
+
+input,
+button,
+textarea,
+.logo {
+	border: 0.5px solid #d3dcf4;
 }
 
-input, button, textarea, .logo {
-	border-radius: 5px;
-	border: 0.5px solid #d3dcf4;
+input,
+textarea {
 	background: none;
 }
 
@@ -54,46 +121,56 @@ textarea,
 	margin-bottom: 20px;
 }
 
-input, button,.logo {
+input,
+button,
+.logo,
+.delete-line-item {
 	height: 35px;
-}
-
-button, .submit, .logo {
-	background-color: #5582fa;
-	color: #fff;
-}
-
-h1 {
-	font-size: 32px;
-	font-weight: 400;
 }
 
 li {
 	list-style: none;
 }
 
-.invoice-header {
+.items-container,
+.notes-terms,
+.footer,
+.invoice-header,
+.invoice-bill {
 	margin: 0 auto;
+}
+
+.wrapper,
+.invoice-bill,
+.items-container,
+.notes-terms,
+.invoice-header {
 	width: 95%;
-	display: flex;
-	flex-direction: column;
 }
 
 .top {
-	display: flex;
-	width: 100%;
-	align-items: center;
-	justify-content: space-between;
+	flex-direction: row;
 }
 
-.column-left {
-  display: flex;
-  flex-direction: column;
+body,
+.top,
+.number,
+.footer,
+.footer-buttons {
+	width: 100%;
+}
+
+.column-left,
+.logo,
+.taxType,
+.discountType,
+.footer {
   justify-content: center;
 }
 
-.number {
-	width: 100px;
+.number,
+input[name='dueDate'],
+.logo  {
 	text-align: center;
 }
 
@@ -107,18 +184,13 @@ li {
 	left: 10px;
 }
 
-input[type=file] {
+input[type=file],
+input[type=radio] {
 	display: none;
 }
 
 .logo {
 	width: 70px;
-	display: flex;
-	font-size: 14px;
-	text-align: center;
-	font-weight: 100;
-	align-items: center;
-	justify-content: center;
 }
 
 img {
@@ -131,48 +203,27 @@ input[name='dueDate'], input[name='paymentTerms'] {
 	width: 145px;
 }
 
-input[name='dueDate'] {
-	text-align: center;
-}
-
-.balance {
-	color: #fea06d;
-	font-size: 18px;
-	font-weight: bold;
-	margin: 15px 0 35px;
-}
-
-.items-container, .label {
-	display: flex;
-	flex-direction: column;
-}
-
 .items-container {
-	width: 95%;
-	margin: 0 auto;
 	border-top: 0.5px solid #d3dcf4;
 }
 
-.line-item-fields {
-	display: flex;
-	flex-direction: column;
-}
-
-.quantity, .rate {
-	width: 100px;
-}
-
-.rate-label {
+.rate-label,
+.hide-tax,
+.hide-shipping,
+.hide-discount {
 	margin-left: 15px;
 }
 
-.delete-line-item {
-	height: 35px;
+.delete-line-item,
+.hide-tax,
+.hide-shipping,
+.hide-discount {
 	width: 35px;
 }
 
-.top-area, .middle-area {
-	display: flex;
+.top,
+.top-area,
+.middle-area {
 	justify-content: space-between;
 }
 
@@ -184,6 +235,8 @@ input[name='dueDate'] {
 	justify-content: flex-start;
 }
 
+.quantity,
+.rate,
 .add-line-item,
 input[name=tax],
 input[name=discount],
@@ -192,102 +245,82 @@ input[name=amountPaid] {
 	width: 100px;
 }
 
-.add-line-item {
-	font-size: 14px;
-	font-weight: 100;
-}
-
-.invoice-bill {
-	display: flex;
-	flex-direction: column;
-	margin: 0 auto;
-	width: 95%;
-}
 
 .tax-area,
 .discount-area,
 .shipping-field,
 .total-field,
-.amount-paid-field {
-	display: flex;
+.amount-paid-field,
+.footer-buttons {
 	justify-content: flex-end;
 }
 
+.top,
+.logo,
 .tax-area,
 .discount-area,
-.shipping-field {
+.shipping-field,
+.taxType,
+.discountType {
 	align-items: center;
 }
 
+.wrapper,
+.logo,
+.top,
+.top-area,
+.middle-area,
+.two-col,
+.column-left,
+.head-col-left,
+.head-col-right,
+.total-field,
 .tax-field,
+.tax-area,
+.discount-area,
 .discount-field,
+.shipping-field,
 .shipping-field > div,
-.amount-paid-field > div {
+.amount-paid-field,
+.amount-paid-field > div,
+.items-container,
+.label,
+.line-item-fields,
+.invoice-header,
+.invoice-bill,
+.buttons,
+.notes-terms,
+.align-type,
+.taxType,
+.discountType,
+.footer,
+.footer-buttons {
 	display: flex;
-	flex-direction: column;
 }
 
-.taxType, .discountType {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-input[type=radio] + label {
-	margin-right: 25px;
-}
-
-input[type=radio]:checked + label {
-	font-weight: bold;
-	color: red;
-}
-
-input[type=radio] {
-	display: none;
+.align-type > span {
+	margin-right: -15px;
+	align-self:
 }
 
 input[name=tax],
 input[name=discount],
-input[name=shipping] {
-	margin-bottom: 16px;
-}
-
-.hide-tax,
-.hide-shipping,
-.hide-discount {
-	width: 35px;
-	margin-left: 15px;
-}
-
+input[name=shipping],
 .buttons {
-	display: flex;
-	align-self: flex-end;
-	flex-direction: column;
 	margin-bottom: 15px;
 }
 
+.buttons,
 .invoice-bill > span {
 	align-self: flex-end;
-	font-weight: 500;
 }
 
 .buttons button {
-	background-color: #fff;
 	border: none;
 	border-radius: 0px;
 	border-bottom: 0.5px solid #0cbeab;
-	color: #0cbeab;
-	font-size: 14px;
 	height: 25px;
 	width: auto;
-	padding: 0;
-}
-
-.notes-terms {
-	display: flex;
-	flex-direction: column;
-	margin: 0 auto;
-	width: 95%;
 }
 
 input[name='terms'] {
@@ -295,32 +328,34 @@ input[name='terms'] {
 }
 
 .footer {
-	display: flex;
-	justify-content: center;
-	width: 100%;
-	margin: 0 auto;
 	position: fixed;
 	bottom: 0;
 	right: 0;
 	left: 0;
-	background-color: #ffffff;
 }
 
-.footer-buttons {
-	display: flex;
-	justify-content: flex-end;
-	width: 100%;
-	max-width: 850px;
-}
-
-.two-col, .head-col-left, .head-col-right {
-	display: flex;
+.wrapper,
+.two-col,
+.head-col-left,
+.head-col-right,
+.tax-field,
+.discount-field,
+.shipping-field > div,
+.amount-paid-field > div,
+.items-container,
+.label,
+.line-item-fields,
+.invoice-header,
+.column-left,
+.invoice-bill,
+.buttons,
+.notes-terms {
 	flex-direction: column;
 }
 
-
 @media (min-width: 768px) {
-	.wrapper {
+	.wrapper,
+	.footer-buttons {
 		max-width: 850px;
 	}
 
@@ -330,11 +365,16 @@ input[name='terms'] {
 	}
 
 	.two-col {
-		flex-direction: row;
 		justify-content: space-between;
 	}
 
-	.line-item-fields {
+	.head-col-right,
+	.invoice-bill {
+		align-items: flex-end;
+	}
+
+	.line-item-fields,
+	.two-col {
 		flex-direction: row;
 	}
 
@@ -346,15 +386,9 @@ input[name='terms'] {
 	}
 
 
-	.middle-area {
+	.middle-area,
+	.invoice-bill {
 		order: 2;
-		align-self: flex-end;
-	}
-
-	.invoice-bill{
-		order: 2;
-		align-self: flex-end;
-		margin: 0 auto;
 	}
 
 	.invoice-footer {

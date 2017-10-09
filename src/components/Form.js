@@ -270,12 +270,15 @@ export default class InvoiceForm extends React.Component {
 					<label htmlFor='tax'>
 						Tax
 					</label>
-					<input
-						name='tax'
-						type='number'
-						min='0'
-						onChange={this.handleChange}
-					/>
+					<div className='align-type'>
+						<span>%</span>
+						<input
+							name='tax'
+							type='number'
+							min='0'
+							onChange={this.handleChange}
+						/>
+					</div>
 				</div>
 				<button
 					onClick={(e) => {
