@@ -1,13 +1,13 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Form from './components/Form'
+import App from './components/App'
 
 import 'react-datepicker/dist/react-datepicker.css'
 import 'normalize.css'
 import './main.css'
 
 ReactDOM.render(
-	<Form/>,
+	<App/>,
 	document.querySelector('.app')
 )

@@ -2,35 +2,13 @@ import React from 'react'
 import LineItem from './LineItem'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
-
-
-const calcSubtotal = (items) => {
-	return items.reduce((total,item) => {
-		return total + (item.rate * item.quantity)
-	}, 0)
-}
-
-const calcPercent = (percentAmount, subTotal) => {
-	return (percentAmount / 100) * subTotal
-}
-
-const calcRate = (type, amount, subTotal) => {
-	if (type === 'percent') {
-		return calcPercent(amount, subTotal)
-	} else if (type === 'flat') {
-		return amount
-	} else {
-		throw new Error('Unrecognized Type')
-	}
-}
-
-const calcTotal = (subTotal, tax, discount, shipping) => {
-	return (parseFloat((subTotal  - discount) + tax + shipping).toFixed(2))
-}
-
-const calcBalanceDue = (total, amountPaid) => {
-	return (total - amountPaid).toFixed(2)
-}
+import {
+  calcSubtotal,
+  calcPercent,
+  calcRate,
+  calcTotal,
+  calcBalanceDue
+} from '../helpers/invoiceFormHelpers'
 
 export default class InvoiceForm extends React.Component {
 	constructor(props){
@@ -113,12 +91,6 @@ export default class InvoiceForm extends React.Component {
 		}
 	}
 
-	setSelection(value, field) {
-		this.setState({
-			[field]: value
-		})
-	}
-
 	render() {
 
 		const subtotal = calcSubtotal(this.state.items)
@@ -147,7 +119,7 @@ export default class InvoiceForm extends React.Component {
 		let logo = null
 		if (this.state.logo === '') {
 			logo =<div className='logo-div'>
-			 <label htmlFor='logo' className='logo'>
+			 <label htmlFor='logo' className='flex-row flex-justify-center flex-align-center colored-button form-field-label '>
 				+ Logo
 			</label>
 			<input
@@ -159,8 +131,8 @@ export default class InvoiceForm extends React.Component {
 			/>
 			</div>
 		} else {
-			logo = <div className='logo-div'  onClick={() => {this.setSelection('', 'logo')}}>
-				<img src={this.state.logo}/>
+			logo = <div onClick={() => {this.setState({logo: ''})}}>
+					<img className='logo-image' src={this.state.logo}/>
 				</div>
 		}
 
@@ -168,9 +140,9 @@ export default class InvoiceForm extends React.Component {
 		let discountButton = null
 
 		if (!this.state.showDiscount ) {
-			discountButton = <div className='discount-area'>
+			discountButton = <div className='discount-area flex-row flex-justify-end flex-align-center'>
 				<button
-				className='show-discount'
+				className='show-discount colored-link a-bit-of-space-below'
 				onClick={this.handleChange}
 				value='true'
 				name='showDiscount'
@@ -179,8 +151,9 @@ export default class InvoiceForm extends React.Component {
 				</button>
 			</div>
 		} else if (this.state.showDiscount) {
-			discount = <div className='discount-area'>
-				<div className='discountType' onChange={this.handleChange}>
+			discount = <div className='discount-area flex-row flex-justify-end flex-align-center'>
+				<div className='discount-type flex-row flex-justify-center flex-align-center'
+				  onChange={this.handleChange}>
 					<input
 						type='radio'
 						value='percent'
@@ -188,7 +161,7 @@ export default class InvoiceForm extends React.Component {
 						id='discountTypePercent'
 						defaultChecked
 					/>
-					<label htmlFor='discountTypePercent'>
+					<label htmlFor='discountTypePercent' className='form-field-label'>
 						 %
 					</label>
 					<input
@@ -197,15 +170,16 @@ export default class InvoiceForm extends React.Component {
 						name='discountType'
 						id='discountTypeFlat'
 					/>
-					<label htmlFor='discountTypeFlat'>
+					<label htmlFor='discountTypeFlat' className='form-field-label'>
 						$
 					</label>
 				</div>
-				<div className='discount-field'>
-					<label htmlFor='discount'>
+				<div className='discount-field flex-column'>
+					<label htmlFor='discount' className='form-field-label'>
 						Discount
 					</label>
 					<input
+						className='form-field-input more-space-below'
 						name='discount'
 						type='number'
 						min='0'
@@ -215,11 +189,11 @@ export default class InvoiceForm extends React.Component {
 				<button
 					onClick={(e) => {
 						this.handleChange(e)
-						this.setSelection(0, 'discount')
+						this.setState({discount: 0})
 					}}
 					value='false'
 					name='showDiscount'
-					className='hide-discount'
+					className='hide-discount colored-button'
 				>
 					x
 				</button>
@@ -231,9 +205,9 @@ export default class InvoiceForm extends React.Component {
 		let taxButton = null
 
 		if (!this.state.showTax) {
-			taxButton = <div className='tax-area'>
+			taxButton = <div className='tax-area flex-row flex-justify-end flex-align-center'>
 				<button
-				className='show-tax'
+				className='show-tax colored-link a-bit-of-space-below'
 				onClick={this.handleChange}
 				value='true'
 				name='showTax'
@@ -242,8 +216,8 @@ export default class InvoiceForm extends React.Component {
 				</button>
 			</div>
 		} else if (this.state.showTax) {
-			tax = <div className='tax-area'>
-				<div className='taxType'
+			tax = <div className='tax-area flex-row flex-justify-end flex-align-center'>
+				<div className='tax-type flex-row flex-justify-center flex-align-center'
 					onChange={this.handleChange}
 					>
 					<input
@@ -253,7 +227,7 @@ export default class InvoiceForm extends React.Component {
 						id='taxTypePercent'
 						defaultChecked
 						/>
-					<label htmlFor='taxTypePercent'>
+					<label htmlFor='taxTypePercent' className='form-field-label'>
 						%
 					</label>
 					<input
@@ -262,17 +236,18 @@ export default class InvoiceForm extends React.Component {
 						name='taxType'
 						id='taxTypeFlat'
 						/>
-					<label htmlFor='taxTypeFlat'>
+					<label htmlFor='taxTypeFlat' className='form-field-label'>
 						$
 					</label>
 				</div>
-				<div className='tax-field'>
-					<label htmlFor='tax'>
+				<div className='tax-field flex-column'>
+					<label htmlFor='tax' className='form-field-label'>
 						Tax
 					</label>
-					<div className='align-type'>
-						<span>%</span>
+					<div className='flex-row'>
+						<span className='align-type'>%</span>
 						<input
+							className='form-field-input more-space-below'
 							name='tax'
 							type='number'
 							min='0'
@@ -283,11 +258,11 @@ export default class InvoiceForm extends React.Component {
 				<button
 					onClick={(e) => {
 						this.handleChange(e)
-						this.setSelection(0, 'tax')
+						this.setState({tax: 0})
 					}}
 					value='false'
 					name='showTax'
-					className='hide-tax'
+					className='hide-tax colored-button'
 				>
 					x
 				</button>
@@ -299,9 +274,9 @@ export default class InvoiceForm extends React.Component {
 		let shippingButton = null
 
 		if (!this.state.showShipping) {
-			shippingButton = <div className='shipping-field'>
+			shippingButton = <div className='shipping-field flex-column flex-justify-end flex-align-center'>
 				<button
-				className='show-shipping'
+				className='show-shipping colored-link a-bit-of-space-below'
 				onClick={this.handleChange}
 				value='true'
 				name='showShipping'
@@ -311,12 +286,13 @@ export default class InvoiceForm extends React.Component {
 			</div>
 			shipping = null
 		} else if (this.state.showShipping) {
-			shipping = <div className='shipping-field'>
-				<div>
-					<label htmlFor='shipping'>
+			shipping = <div className='shipping-field flex-row flex-justify-end flex-align-center'>
+				<div className='flex-column'>
+					<label htmlFor='shipping' className='form-field-label'>
 						Shipping
 					</label>
 					<input
+						className='form-field-input more-space-below'
 						name='shipping'
 						type='number'
 						min='0'
@@ -326,9 +302,9 @@ export default class InvoiceForm extends React.Component {
 				<button
 					onClick={(e) => {
 						this.handleChange(e)
-						this.setSelection(0, 'shipping')
+						this.setState({shipping: 0})
 					}}
-					className='hide-shipping'
+					className='hide-shipping colored-button'
 					value='false'
 					name='showShipping'
 				>
@@ -343,122 +319,138 @@ export default class InvoiceForm extends React.Component {
 		return (
 			<form onSubmit={(e) => {
 				e.preventDefault()
-			}}>
-				<div className='wrapper'>
-					<div className='invoice-header'>
-						<div className='top'>
-							<div className='column-left'>
+				this.props.onSend({
+            from: (this.state.from).match(/.{1,20}/g)[0],
+            to: (this.state.to).match(/.{1,20}/g)[0],
+						subject: `Invoice #${this.state.number}`
+          })
+				}
+			}>
+				<div className='wrapper flex-column'>
+					<div className='invoice-header flex-column'>
+						<div className='top flex-row flex-space-between flex-align-center'>
+							<div className='column-left flex-column flex-justify-center'>
 								<h1>Invoice</h1>
 
-									<label htmlFor='number' className='number-label'>
-										<span>#</span>
-										<input
+								<label htmlFor='number' className='number-label form-field-label'>
+									<span className='label-position'>#</span>
+									<input
+										className='form-field-input'
 										name='number'
-										className='number'
+										className='text-center form-field-input'
 										onChange={this.handleChange}
 										value={this.state.number}
-										/>
-									</label>
-								</div>
-
-								{logo}
-
+									/>
+								</label>
 							</div>
-							<div className='two-col'>
-								<div className='head-col-left'>
-									<label htmlFor='from'>
-										From
-									</label>
-									<textarea
-										name='from'
-										onChange={this.handleChange}
-									/>
 
-									<label htmlFor='to'>
-										Bill To
-									</label>
-									<textarea
-										name='to'
-										onChange={this.handleChange}
-									/>
-								</div>
-								<div className='head-col-right'>
-									<span className='date'>
-										Date
-									</span>
-									<DatePicker
-										selected={this.state.date}
-										onChange={(date) => this.setSelection(date, 'date') }
-										name='dueDate'
-										showMonthDropdown
-									 />
+							{logo}
 
-									<label htmlFor='paymentTerms'>
-										Payment Terms
-									</label>
+						</div>
+						<div className='two-col-row flex-column'>
+							<div className='two-col-left flex-column'>
+								<label htmlFor='from' className='form-field-label'>
+									From
+								</label>
+								<textarea
+									className='form-field-input form-field-multiline'
+									name='from'
+									onChange={this.handleChange}
+								/>
+
+								<label htmlFor='to' className='form-field-label'>
+									Bill To
+								</label>
+								<textarea
+									className='form-field-input form-field-multiline'
+									name='to'
+									onChange={this.handleChange}
+								/>
+							</div>
+							<div className='two-col-right flex-column'>
+								<span className='form-field-label'>
+									Date
+								</span>
+								<DatePicker
+									className='form-field-input cursor-pointer'
+									selected={this.state.date}
+									onChange={(date) => this.setState({date: date}) }
+									name='dueDate'
+									showMonthDropdown
+								 />
+
+								<label htmlFor='paymentTerms' className='form-field-label'>
+									Payment Terms
+								</label>
+								<div className='flex-row'>
 									<input
+										className='form-field-input'
 										name='paymentTerms'
 										onChange={this.handleChange}
 									/>
-
-									<span className='date'>
-										Due Date
-									</span>
-									<DatePicker
-										selected={this.state.dueDate}
-										onChange={(date) => this.setSelection(date, 'dueDate') }
-										name='dueDate'
-										showMonthDropdown
-									 />
-
-									<span className='balance'>
-									 	Balance Due: ${calcBalanceDue(total, this.state.amountPaid)}
-									</span>
 								</div>
+
+								<span className='form-field-label'>
+									Due Date
+								</span>
+								<DatePicker
+									className='form-field-input cursor-pointer'
+									selected={this.state.dueDate}
+									onChange={(date) => this.setState({dueDate: date}) }
+									name='dueDate'
+									showMonthDropdown
+								 />
+
+								<span className='color-larger-text'>
+								 	Balance Due: ${calcBalanceDue(total, this.state.amountPaid)}
+								</span>
 							</div>
 						</div>
-						<div className='items-container'>
-							<ul className='line-item-list'>
-								{this.state.items.map((item, index) => {
-									return (
-										<LineItem
-											description={item.description}
-											quantity={item.quantity}
-											rate={item.rate}
-											amount={item.rate * item.quantity}
-											key={index}
-											length={this.state.items.length}
-											onChange={ (name, value) => {
-												const newItems = this.state.items.slice()
+					</div>
+					<div className='top-border flex-column'>
+						<ul className='line-item-list'>
+							{this.state.items.map((item, index) => {
+								return (
+									<LineItem
+										description={item.description}
+										quantity={item.quantity}
+										rate={item.rate}
+										amount={item.rate * item.quantity}
+										key={index}
+										length={this.state.items.length}
+										onChange={ (name, value) => {
+											const newItems = this.state.items.slice()
 
-												newItems[index] = {
-													description: item.description,
-													quantity: parseFloat(item.quantity),
-													rate: parseFloat(item.rate),
-													amount: (item.rate * item.quantity)
-												}
+											newItems[index] = {
+												description: item.description,
+												quantity: item.quantity,
+												rate: item.rate,
+												amount: (item.rate * item.quantity)
+											}
 
-												if ((name === 'quantity' || name === 'rate') && value === '') {
-													value = 0
-												}
-												newItems[index][name] = value
+											if (name === 'quantity' || name === 'rate') {
+												value = value === '' ? 0 : parseFloat(value)
+											}
+											newItems[index][name] = value
 
 											this.setState({
 												items: newItems
 											});
-											}}
-											onRemove={()=>{
-												const newItems = this.state.items.slice()
-												newItems.splice(index, 1)
-												this.setState({
-													items: newItems
-												})
-											}}
-										/>)
-								})}
-							</ul>
+										}}
+										onRemove={()=>{
+											const newItems = this.state.items.slice()
+											newItems.splice(index, 1)
+											this.setState({
+												items: newItems
+											})
+										}}
+									/>)
+								})
+							}
+						</ul>
+						<div className='flex-row'>
 							<button
-								className='add-line-item'
+								className='add-line-item colored-button'
 								onClick={()=>{
 									const newLineItem = this.state.items.slice()
 									newLineItem.push({
@@ -467,78 +459,78 @@ export default class InvoiceForm extends React.Component {
 										rate: 0,
 										amount: 0
 									})
-		              this.setState({
-		                items: newLineItem
+			            this.setState({
+	                	items: newLineItem
 		              });
 								}}>
 								+ Line Item
 							</button>
 						</div>
+					</div>
 
-						<div className='two-col invoice-footer'>
-							<div className='invoice-bill'>
-								<span>
-									Subtotal: ${calcSubtotal(this.state.items)}
-								</span>
+					<div className='two-col-row invoice-footer flex-column'>
+						<div className='flex-column two-col-right flex-space-between'>
+							<span className='self-align-end medium-weight-text'>
+								Subtotal: ${calcSubtotal(this.state.items)}
+							</span>
 
-								{discount}
+							{discount}
 
-								{tax}
+							{tax}
 
-								{shipping}
+							{shipping}
 
-								<div className='buttons'>
-									{discountButton}
-									{taxButton}
-									{shippingButton}
-								</div>
-
-								<div className='total-field'>
-									<span>Total: ${total}</span>
-								</div>
-
-								<div className='amount-paid-field'>
-									<div>
-										<label htmlFor='amountPaid'>
-											Amount Paid
-										</label>
-										<input
-											name='amountPaid'
-											type='number'
-											min='0'
-											onChange={this.handleChange}
-										/>
-									</div>
-								</div>
+							<div className='flex-column flex-align-end'>
+								{discountButton}
+								{taxButton}
+								{shippingButton}
 							</div>
-							<div className='notes-terms'>
-								<label htmlFor='notes'>
-									Notes
-								</label>
-								<textarea
-									name='notes'
-									onChange={this.handleChange}
-								/>
 
-								<label htmlFor='terms'>
-									Terms
-								</label>
-								<textarea
-									name='terms'
-									onChange={this.handleChange}
-								/>
+							<div className='total-field flex-row flex-justify-end'>
+								<span>Total: ${total}</span>
+							</div>
+
+							<div className='amount-paid-field flex-row flex-justify-end'>
+								<div className='flex-column'>
+									<label htmlFor='amountPaid' className='form-field-label'>
+										Amount Paid
+									</label>
+									<input
+										className='form-field-input'
+										name='amountPaid'
+										type='number'
+										min='0'
+										onChange={this.handleChange}
+									/>
+								</div>
 							</div>
 						</div>
+						<div className='notes-terms flex-column two-col-left'>
+							<label htmlFor='notes' className='form-field-label'>
+								Notes
+							</label>
+							<textarea
+								className='form-field-input form-field-multiline'
+								name='notes'
+								onChange={this.handleChange}
+							/>
 
+							<label htmlFor='terms' className='form-field-label'>
+								Terms
+							</label>
+							<textarea
+								className='form-field-input form-field-multiline'
+								name='terms'
+								onChange={this.handleChange}
+							/>
+						</div>
+					</div>
 				</div>
-				<div className='footer'>
-					<div className='footer-buttons'>
-						<input type='submit' className='submit'/>
-						<button
-							onClick={()=>{
-								console.log(this.state)
-							}}>
-							Log state
+				<div className='footer flex-row flex-justify-end'>
+					<div className='footer-buttons flex-row flex-justify-end'>
+						<input type='submit' className='submit colored-button'/>
+						<button className='colored-button'>
+							Download Invoice
 						</button>
 					</div>
 				</div>

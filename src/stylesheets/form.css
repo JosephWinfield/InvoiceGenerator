@@ -2,6 +2,119 @@ body {
 	background-color: #f6f8ff;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	color: #4d5c71;
+	box-sizing: border-box;
+	padding: 0 2%;
+}
+
+.two-col-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.two-col-left,
+.two-col-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-justify-start {
+  justify-content: flex-start;
+}
+
+.flex-justify-center {
+  justify-content: center;
+}
+
+.flex-justify-end {
+  justify-content: flex-end;
+}
+
+.flex-space-between {
+  justify-content: space-between;
+}
+
+.flex-align-start {
+  align-items: flex-start;
+}
+
+.flex-align-end {
+	align-items: flex-end;
+}
+
+.flex-align-center {
+  align-items: center;
+}
+
+.self-align-end {
+	align-self: flex-end;
+}
+
+.fill-screen {
+	height: 100%;
+}
+
+.colored-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 100;
+  background-color: #5582fa;
+	border: 0.5px solid #d3dcf4;
+  color: #fff;
+  border-radius: 5px;
+  height: 35px;
+  padding: 0px 13px;
+  cursor: pointer;
+}
+
+.colored-link {
+  font-size: 14px;
+  border: none;
+  border-radius: 0px;
+  border-bottom: 0.5px solid #0cbeab;
+  background: none;
+  color: #0cbeab;
+  height: 25px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.form-field-label {
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+
+.form-field-input {
+  height: 35px;
+  margin-bottom: 20px;
+  background: none;
+  border: 0.5px solid #d3dcf4;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 100;
+}
+
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.form-field-multiline {
+  height: 50px;
+}
+
+.text-center {
+	text-align: center;
 }
 
 .wrapper {
@@ -9,26 +122,9 @@ body {
 	margin: 10 auto 0;
 	border-top: 5px solid #0cbeab;
 	box-shadow: 0 3px 2px rgba(60,72,88,.34);
-}
-
-.wrapper,
-input,
-button,
-textarea,
-.logo {
 	border-radius: 5px;
-
-}
-
-label, input, textarea, .date {
-	font-size: 13px;
-}
-
-input,
-textarea
-.logo,
-.add-line-item {
-	font-weight: 100;
+	box-sizing: border-box;
+	padding: 0 2%;
 }
 
 h1 {
@@ -36,19 +132,13 @@ h1 {
 	font-weight: 400;
 }
 
-.add-line-item,
-.logo,
-.buttons button {
-	font-size: 14px;
-}
-
-.balance {
+.color-larger-text {
 	font-size: 18px;
 	font-weight: bold;
 	margin: 15px 0 35px;
+	color: #fea06d;
 }
 
-.buttons button,
 input[type=radio] + label {
 	margin-right: 25px;
 }
@@ -57,25 +147,13 @@ input[type=radio]:checked + label {
 	font-weight: 900;
 }
 
-.invoice-bill > span {
+.medium-weight-text {
 	font-weight: 500;
 }
 
 .wrapper,
-.footer,
-.buttons button {
+.footer {
 	background-color: #ffffff;
-}
-
-button,
-.submit,
-.logo {
-	background-color: #5582fa;
-	color: #fff;
-}
-
-.buttons button {
-	color: #0cbeab;
 }
 
 input[type=radio]:checked + label,
@@ -88,97 +166,19 @@ form {
 }
 
 ul,
-li,
-.buttons button  {
+li {
 	padding: 0;
-}
-
-
-label, .date {
-	margin-bottom: 3px;
-}
-
-
-input,
-button,
-textarea,
-.logo {
-	border: 0.5px solid #d3dcf4;
-}
-
-input,
-textarea {
-	background: none;
-}
-
-textarea {
-	height: 50px;
-}
-
-input,
-textarea,
-.total-field {
-	margin-bottom: 20px;
-}
-
-input,
-button,
-.logo,
-.delete-line-item {
-	height: 35px;
 }
 
 li {
 	list-style: none;
 }
 
-.items-container,
-.notes-terms,
-.footer,
-.invoice-header,
-.invoice-bill {
-	margin: 0 auto;
-}
-
-.wrapper,
-.invoice-bill,
-.items-container,
-.notes-terms,
-.invoice-header {
-	width: 95%;
-}
-
-.top {
-	flex-direction: row;
-}
-
-body,
-.top,
-.number,
-.footer,
-.footer-buttons {
-	width: 100%;
-}
-
-.column-left,
-.logo,
-.taxType,
-.discountType,
-.footer {
-  justify-content: center;
-}
-
-.number,
-input[name='dueDate'],
-.logo  {
-	text-align: center;
-}
-
 .number-label {
 	position: relative;
 }
 
-.number-label > span {
+.label-position {
 	position: absolute;
 	top: 10px;
 	left: 10px;
@@ -189,142 +189,39 @@ input[type=radio] {
 	display: none;
 }
 
-.logo {
-	width: 70px;
-}
-
-img {
+.logo-image {
 	height: 75px;
 	width: 75px;
 	border-radius: 50%;
 }
 
-input[name='dueDate'], input[name='paymentTerms'] {
-	width: 145px;
+.logo-image:hover {
+	opacity: 0.5;
+	cursor: pointer;
 }
 
-.items-container {
+.top-border {
 	border-top: 0.5px solid #d3dcf4;
 }
 
-.rate-label,
-.hide-tax,
-.hide-shipping,
-.hide-discount {
+.rate-label {
 	margin-left: 15px;
 }
 
-.delete-line-item,
-.hide-tax,
-.hide-shipping,
-.hide-discount {
-	width: 35px;
+.a-bit-of-space-below {
+	margin-bottom: 5px;
 }
 
-.top,
-.top-area,
-.middle-area {
-	justify-content: space-between;
-}
-
-.top-area {
+.space-below {
 	margin-bottom: 10px;
 }
 
-.middle-area {
-	justify-content: flex-start;
-}
-
-.quantity,
-.rate,
-.add-line-item,
-input[name=tax],
-input[name=discount],
-input[name=shipping],
-input[name=amountPaid] {
-	width: 100px;
-}
-
-
-.tax-area,
-.discount-area,
-.shipping-field,
-.total-field,
-.amount-paid-field,
-.footer-buttons {
-	justify-content: flex-end;
-}
-
-.top,
-.logo,
-.tax-area,
-.discount-area,
-.shipping-field,
-.taxType,
-.discountType {
-	align-items: center;
-}
-
-.wrapper,
-.logo,
-.top,
-.top-area,
-.middle-area,
-.two-col,
-.column-left,
-.head-col-left,
-.head-col-right,
-.total-field,
-.tax-field,
-.tax-area,
-.discount-area,
-.discount-field,
-.shipping-field,
-.shipping-field > div,
-.amount-paid-field,
-.amount-paid-field > div,
-.items-container,
-.label,
-.line-item-fields,
-.invoice-header,
-.invoice-bill,
-.buttons,
-.notes-terms,
-.align-type,
-.taxType,
-.discountType,
-.footer,
-.footer-buttons {
-	display: flex;
-}
-
-.align-type > span {
+.align-type {
 	margin-right: -15px;
-	align-self:
 }
 
-input[name=tax],
-input[name=discount],
-input[name=shipping],
-.buttons {
+.more-space-below {
 	margin-bottom: 15px;
-}
-
-.buttons,
-.invoice-bill > span {
-	align-self: flex-end;
-}
-
-.buttons button {
-	border: none;
-	border-radius: 0px;
-	border-bottom: 0.5px solid #0cbeab;
-	height: 25px;
-	width: auto;
-}
-
-input[name='terms'] {
-	margin-bottom: 80px;
 }
 
 .footer {
@@ -332,67 +229,46 @@ input[name='terms'] {
 	bottom: 0;
 	right: 0;
 	left: 0;
-}
-
-.wrapper,
-.two-col,
-.head-col-left,
-.head-col-right,
-.tax-field,
-.discount-field,
-.shipping-field > div,
-.amount-paid-field > div,
-.items-container,
-.label,
-.line-item-fields,
-.invoice-header,
-.column-left,
-.invoice-bill,
-.buttons,
-.notes-terms {
-	flex-direction: column;
+	margin: 0 auto;
 }
 
 @media (min-width: 768px) {
 	.wrapper,
-	.footer-buttons {
+	.footer {
 		max-width: 850px;
 	}
 
-	textarea {
+	.form-field-multiline {
 		width: 290px;
 		height: 90px;
 	}
 
-	.two-col {
-		justify-content: space-between;
-	}
+	.two-col-row {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 
-	.head-col-right,
-	.invoice-bill {
-		align-items: flex-end;
-	}
+  .two-col-left {
+    order: 1;
+		flex-grow: 1;
+  }
 
-	.line-item-fields,
-	.two-col {
+  .two-col-right {
+    align-items: flex-end;
+    order: 2;
+  }
+
+	.desktop-flex-row {
 		flex-direction: row;
 	}
 
 	.bottom-area {
 		flex-grow: 10;
 		align-self: flex-start;
-		order: 1;
 		margin-right: 16px;
 	}
 
-
-	.middle-area,
-	.invoice-bill {
-		order: 2;
-	}
-
 	.invoice-footer {
-		margin: 35px auto 0;
-		width: 95%
+		margin-top: 35px;
 	}
 }
