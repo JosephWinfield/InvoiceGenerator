@@ -530,7 +530,11 @@ export default class InvoiceForm extends React.Component {
 				<div className='footer flex-row flex-justify-end'>
 					<div className='footer-buttons flex-row flex-justify-end'>
 						<input type='submit' className='submit colored-button'/>
-						<button className='colored-button'>
+						<button className='colored-button'
+							onClick={(e)=>{
+								e.preventDefault()
+							}}
+						>
 							Download Invoice
 						</button>
 					</div>
