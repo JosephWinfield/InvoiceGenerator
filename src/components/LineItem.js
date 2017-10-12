@@ -4,7 +4,7 @@ export default (props) => {
 	let button = null
 
 	if (props.length > 1) {
-		button = <button className='delete-line-item colored-button' onClick={props.onRemove}> x </button>
+		button = <button className='colored-button' onClick={props.onRemove}> x </button>
 	}
 	return (
 		<li>
@@ -13,8 +13,8 @@ export default (props) => {
 				{button}
 			</div>
 
-			<div className='line-item-fields two-col-row'>
-				<div className='middle-area flex-row flex-justify-start two-col-right desktop-flex-row'>
+			<div className='two-col-row'>
+				<div className='flex-row flex-justify-start two-col-right desktop-flex-row'>
 					<div className='flex-column'>
 						<label
 							htmlFor='quantity'
@@ -22,7 +22,7 @@ export default (props) => {
 						>
 							Quantity
 						</label>
-						<input className='quantity form-field-input'
+						<input className='form-field-input'
 							value={props.quantity}
 							type='number'
 							min='0'
@@ -32,14 +32,14 @@ export default (props) => {
 							}
 						}/>
 					</div>
-					<div className='rate-label flex-column'>
+					<div className='space-left flex-column'>
 						<label
 							htmlFor='rate'
 							className='form-field-label'
 						>
 							Rate
 						</label>
-						<input className='rate form-field-input'
+						<input className='form-field-input'
 							value={props.rate}
 							type='number'
 							min='0'
@@ -51,7 +51,7 @@ export default (props) => {
 					</div>
 				</div>
 
-				<div className='bottom-area two-col-left'>
+				<div className='flex-place two-col-left'>
 					<div className='flex-column'>
 						<label
 							htmlFor='description'
@@ -59,7 +59,7 @@ export default (props) => {
 						>
 							Description
 						</label>
-						<input className='description form-field-input'
+						<input className='form-field-input'
 							value={props.description}
 							onChange={(event) => {
 								const newDescription = event.target.value

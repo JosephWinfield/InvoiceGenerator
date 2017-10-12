@@ -140,9 +140,9 @@ export default class InvoiceForm extends React.Component {
 		let discountButton = null
 
 		if (!this.state.showDiscount ) {
-			discountButton = <div className='discount-area flex-row flex-justify-end flex-align-center'>
+			discountButton = <div className='dflex-row flex-justify-end flex-align-center'>
 				<button
-				className='show-discount colored-link a-bit-of-space-below'
+				className='colored-link a-bit-of-space-below'
 				onClick={this.handleChange}
 				value='true'
 				name='showDiscount'
@@ -151,8 +151,8 @@ export default class InvoiceForm extends React.Component {
 				</button>
 			</div>
 		} else if (this.state.showDiscount) {
-			discount = <div className='discount-area flex-row flex-justify-end flex-align-center'>
-				<div className='discount-type flex-row flex-justify-center flex-align-center'
+			discount = <div className='flex-row flex-justify-end flex-align-center'>
+				<div className='flex-row flex-justify-center flex-align-center'
 				  onChange={this.handleChange}>
 					<input
 						type='radio'
@@ -174,7 +174,7 @@ export default class InvoiceForm extends React.Component {
 						$
 					</label>
 				</div>
-				<div className='discount-field flex-column'>
+				<div className='flex-column'>
 					<label htmlFor='discount' className='form-field-label'>
 						Discount
 					</label>
@@ -193,7 +193,7 @@ export default class InvoiceForm extends React.Component {
 					}}
 					value='false'
 					name='showDiscount'
-					className='hide-discount colored-button'
+					className='colored-button add-margin-left'
 				>
 					x
 				</button>
@@ -205,9 +205,9 @@ export default class InvoiceForm extends React.Component {
 		let taxButton = null
 
 		if (!this.state.showTax) {
-			taxButton = <div className='tax-area flex-row flex-justify-end flex-align-center'>
+			taxButton = <div className='flex-row flex-justify-end flex-align-center'>
 				<button
-				className='show-tax colored-link a-bit-of-space-below'
+				className='colored-link a-bit-of-space-below'
 				onClick={this.handleChange}
 				value='true'
 				name='showTax'
@@ -216,8 +216,8 @@ export default class InvoiceForm extends React.Component {
 				</button>
 			</div>
 		} else if (this.state.showTax) {
-			tax = <div className='tax-area flex-row flex-justify-end flex-align-center'>
-				<div className='tax-type flex-row flex-justify-center flex-align-center'
+			tax = <div className='flex-row flex-justify-end flex-align-center'>
+				<div className='flex-row flex-justify-center flex-align-center'
 					onChange={this.handleChange}
 					>
 					<input
@@ -240,7 +240,7 @@ export default class InvoiceForm extends React.Component {
 						$
 					</label>
 				</div>
-				<div className='tax-field flex-column'>
+				<div className='flex-column'>
 					<label htmlFor='tax' className='form-field-label'>
 						Tax
 					</label>
@@ -261,7 +261,7 @@ export default class InvoiceForm extends React.Component {
 					}}
 					value='false'
 					name='showTax'
-					className='hide-tax colored-button'
+					className='colored-button add-margin-left'
 				>
 					x
 				</button>
@@ -273,9 +273,9 @@ export default class InvoiceForm extends React.Component {
 		let shippingButton = null
 
 		if (!this.state.showShipping) {
-			shippingButton = <div className='shipping-field flex-column flex-justify-end flex-align-center'>
+			shippingButton = <div className='flex-column flex-justify-end flex-align-center'>
 				<button
-				className='show-shipping colored-link a-bit-of-space-below'
+				className='colored-link a-bit-of-space-below'
 				onClick={this.handleChange}
 				value='true'
 				name='showShipping'
@@ -285,7 +285,7 @@ export default class InvoiceForm extends React.Component {
 			</div>
 			shipping = null
 		} else if (this.state.showShipping) {
-			shipping = <div className='shipping-field flex-row flex-justify-end flex-align-center'>
+			shipping = <div className='flex-row flex-justify-end flex-align-center'>
 				<div className='flex-column'>
 					<label htmlFor='shipping' className='form-field-label'>
 						Shipping
@@ -303,7 +303,7 @@ export default class InvoiceForm extends React.Component {
 						this.handleChange(e)
 						this.setState({shipping: 0})
 					}}
-					className='hide-shipping colored-button'
+					className='colored-button add-margin-left'
 					value='false'
 					name='showShipping'
 				>
@@ -331,7 +331,7 @@ export default class InvoiceForm extends React.Component {
 			}>
 				<div className='wrapper flex-column'>
 					<div className='invoice-header flex-column'>
-						<div className='top flex-row flex-space-between flex-align-center'>
+						<div className='flex-row flex-space-between flex-align-center'>
 							<div className='column-left flex-column flex-justify-center'>
 								<h1>Invoice</h1>
 
@@ -411,7 +411,7 @@ export default class InvoiceForm extends React.Component {
 						</div>
 					</div>
 					<div className='top-border flex-column'>
-						<ul className='line-item-list'>
+						<ul>
 							{this.state.items.map((item, index) => {
 								return (
 									<LineItem
@@ -453,7 +453,7 @@ export default class InvoiceForm extends React.Component {
 						</ul>
 						<div className='flex-row'>
 							<button
-								className='add-line-item colored-button'
+								className='colored-button'
 								onClick={(event)=>{
 									event.preventDefault()
 									const newLineItem = this.state.items.slice()
@@ -472,7 +472,7 @@ export default class InvoiceForm extends React.Component {
 						</div>
 					</div>
 
-					<div className='two-col-row invoice-footer flex-column'>
+					<div className='two-col-row top-margin flex-column'>
 						<div className='flex-column two-col-right flex-space-between'>
 							<span className='self-align-end medium-weight-text'>
 								Subtotal: ${calcSubtotal(this.state.items)}
@@ -490,11 +490,11 @@ export default class InvoiceForm extends React.Component {
 								{shippingButton}
 							</div>
 
-							<div className='total-field flex-row flex-justify-end'>
+							<div className='flex-row flex-justify-end more-space-below'>
 								<span>Total: ${total}</span>
 							</div>
 
-							<div className='amount-paid-field flex-row flex-justify-end'>
+							<div className='flex-row flex-justify-end'>
 								<div className='flex-column'>
 									<label htmlFor='amountPaid' className='form-field-label'>
 										Amount Paid
@@ -509,7 +509,7 @@ export default class InvoiceForm extends React.Component {
 								</div>
 							</div>
 						</div>
-						<div className='notes-terms flex-column two-col-left'>
+						<div className='flex-column two-col-left'>
 							<label htmlFor='notes' className='form-field-label'>
 								Notes
 							</label>
