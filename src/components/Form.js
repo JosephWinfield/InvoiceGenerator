@@ -245,7 +245,6 @@ export default class InvoiceForm extends React.Component {
 						Tax
 					</label>
 					<div className='flex-row'>
-						<span className='align-type'>%</span>
 						<input
 							className='form-field-input more-space-below'
 							name='tax'
