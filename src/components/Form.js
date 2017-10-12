@@ -319,11 +319,15 @@ export default class InvoiceForm extends React.Component {
 		return (
 			<form onSubmit={(e) => {
 				e.preventDefault()
-				this.props.onSend({
+				if (this.state.to === '' || this.state.to === '') {
+					return
+				} else {
+					this.props.onSend({
             from: (this.state.from).match(/.{1,20}/g)[0],
             to: (this.state.to).match(/.{1,20}/g)[0],
 						subject: `Invoice #${this.state.number}`
           })
+				}
 				}
 			}>
 				<div className='wrapper flex-column'>
