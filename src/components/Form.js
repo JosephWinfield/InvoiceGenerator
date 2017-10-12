@@ -451,7 +451,8 @@ export default class InvoiceForm extends React.Component {
 						<div className='flex-row'>
 							<button
 								className='add-line-item colored-button'
-								onClick={()=>{
+								onClick={(event)=>{
+									event.preventDefault()
 									const newLineItem = this.state.items.slice()
 									newLineItem.push({
 										description: '',
